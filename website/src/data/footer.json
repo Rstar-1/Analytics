@@ -1,0 +1,115 @@
+{
+  "features": [
+    {
+      "id": "service",
+      "icon": "Users",
+      "title": "Customer Service",
+      "text": "Mon-Sat, 9am-6pm EST.",
+      "type": "text"
+    },
+    {
+      "id": "call",
+      "icon": "Phone",
+      "title": "Call Us",
+      "text": "+91 7015163045",
+      "link": "tel:7015163045",
+      "type": "text"
+    },
+    {
+      "id": "touch",
+      "icon": "Send",
+      "title": "Get in Touch",
+      "text": "kohad0681@gmail.com",
+      "link": "mailto:kohad0681@gmail.com",
+      "type": "link"
+    },
+    {
+      "id": "address",
+      "icon": "MapPin",
+      "title": "Address",
+      "text": "Apollo Bandar, Colaba, Mumbai, Maharashtra 400001",
+      "type": "text"
+    }
+  ],
+  "newsletter": {
+    "title": "Join Our Newsletter",
+    "description": "Sign up to our newsletter & receive 10% off your first order.",
+    "placeholder": "Enter your email",
+    "buttonText": "Sign Up",
+    "disclaimer": {
+      "prefix": "By subscribing you agree to the ",
+      "termsLabel": "Terms of Services",
+      "termsUrl": "#terms",
+      "middle": " and ",
+      "privacyLabel": "Privacy Policy",
+      "privacyUrl": "#privacy",
+      "suffix": "."
+    }
+  },
+  "columns": [
+    {
+      "title": "Company",
+      "links": [
+        { "label": "About us", "url": "#about-us" },
+        { "label": "Contact", "url": "#contact" },
+        { "label": "FAQs", "url": "#faqs" },
+        { "label": "Blog", "url": "#blog" },
+        { "label": "Find a Store", "url": "#find-a-store" }
+      ]
+    },
+    {
+      "title": "Collection",
+      "links": [
+        { "label": "Tables", "url": "#tables" },
+        { "label": "Bow Chairs", "url": "#bow-chairs" },
+        { "label": "Turn Table", "url": "#turn-table" },
+        { "label": "Turn Chair", "url": "#turn-chair" },
+        { "label": "Cross Bar Chair", "url": "#cross-bar-chair" }
+      ]
+    },
+    {
+      "title": "Shop",
+      "links": [
+        { "label": "Sofas", "url": "#sofas" },
+        { "label": "Outdoor", "url": "#outdoor" },
+        { "label": "Seating", "url": "#seating" },
+        { "label": "Lighting", "url": "#lighting" },
+        { "label": "Accessories", "url": "#accessories" }
+      ]
+    }
+  ],
+  "bottom": {
+    "region": {
+      "flag": "🇺🇸",
+      "label": "United States (USD $)"
+    },
+    "paymentBadges": ["VISA", "MC", "AMEX", "PAYPAL", "DINERS", "DISCOVER"],
+    "socials": [
+      {
+        "platform": "facebook",
+        "iconName": "Facebook",
+        "url": "https://www.facebook.com/share/p/1EhdBQaRw4/"
+      },
+      {
+        "platform": "x",
+        "iconName": "X",
+        "url": "https://twitter.com/ashmitaent"
+      },
+      {
+        "platform": "instagram",
+        "iconName": "Instagram",
+        "url": "https://www.instagram.com/inraclick/"
+      },
+      {
+        "platform": "youtube",
+        "iconName": "YouTube",
+        "url": "https://www.youtube.com/@INRACLICK"
+      }
+    ],
+    "copyright": "© 2026 inraClick. All rights reserved.",
+    "legalLinks": [
+      { "label": "Terms of Service", "url": "#terms" },
+      { "label": "Privacy Policy", "url": "#privacy" }
+    ]
+  }
+}

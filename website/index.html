@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>%VITE_SEO_TITLE%</title>
+  <meta name="description" content="%VITE_SEO_DESCRIPTION%" />
+  <meta name="keywords" content="%VITE_SEO_KEYWORDS%" />
+  <meta name="robots" content="%VITE_SEO_ROBOTS%" />
+  <link rel="canonical" href="%VITE_SITE_URL%" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="%VITE_SEO_TITLE%" />
+  <meta property="og:description" content="%VITE_SEO_DESCRIPTION%" />
+  <meta property="og:url" content="%VITE_SITE_URL%" />
+  <meta property="og:image" content="%VITE_SEO_IMAGE%" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="%VITE_SEO_TITLE%" />
+  <meta name="twitter:description" content="%VITE_SEO_DESCRIPTION%" />
+
+  <!-- Preconnect to Google Fonts domains to speed up font fetching -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Load Poppins and Ubuntu fonts asynchronously to prevent render-blocking delay -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap">
+  </noscript>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/app/main.jsx"></script>
+</body>
+
+</html>

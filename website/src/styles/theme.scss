@@ -1,0 +1,466 @@
+/* ======================= Start-Color ======================= */
+
+:root {
+    --primary: #db5e1f !important;
+    --secondary: #1f5ac0 !important;
+    --tertiary: #edf2f7d6 !important;
+    --forth: #fafafa !important;
+    --success: #4bb543 !important;
+    --warning: #fb5711 !important;
+    --danger: #c21b1bdb !important;
+    --info: #1877F2 !important;
+    --white: #fff !important;
+    --dark: #0f1623 !important;
+    --gray: #585a63c0 !important;
+    --insta: linear-gradient(135deg,
+            #c13584 0%,
+            #e1306c 50%,
+            #f77737 100%) !important;
+}
+
+.dark-mode {
+    --primary: #94a4f0 !important;
+    --secondary: #85a6e4 !important;
+    --tertiary: #8f9aaa !important;
+    --forth: #0f172a !important;
+    --success: #4bb543 !important;
+    --successtext: #4ade80 !important;
+    --warning: #ff5722 !important;
+    --warningtext: #fbbf24 !important;
+    --danger: #d91831 !important;
+    --info: #2196f3 !important;
+    --white: #263651 !important;
+    --dark: #ffffff !important;
+    --gray: #c4c9cf !important;
+
+    .bg-light-primary {
+        background: #e1e6ef !important;
+    }
+
+    .bg-light-secondary {
+        background: #2d2638 !important;
+    }
+
+    .bg-light-success {
+        background: #123d24 !important;
+    }
+
+    .bg-light-warning {
+        background: #3e2618 !important;
+    }
+
+    .bg-light-danger {
+        background: #eddadf !important;
+    }
+}
+
+/* ======================= End-Color ======================= */
+
+/* ======================= Start-BgColor ======================= */
+
+.bg-primary {
+    background: var(--primary);
+}
+
+.bg-secondary {
+    background: var(--secondary);
+}
+
+.bg-tertiary {
+    background: var(--tertiary);
+}
+
+.bg-forth {
+    background: var(--forth);
+}
+
+.bg-success {
+    background: var(--success);
+}
+
+.bg-warning {
+    background: var(--warning);
+}
+
+.bg-danger {
+    background: var(--danger);
+}
+
+.bg-info {
+    background: var(--info);
+}
+
+.bg-white {
+    background: var(--white);
+}
+
+.bg-gray {
+    background: var(--gray);
+}
+
+.bg-dark {
+    background: var(--dark);
+}
+
+.bg-insta {
+    background: var(--insta);
+}
+
+.bg-light-primary {
+    background: #f3f5f8b6 !important;
+}
+
+.bg-light-secondary {
+    background: #faf1f1 !important;
+}
+
+.bg-light-success {
+    background: #4bb5432e !important;
+}
+
+.bg-light-warning {
+    background: #faf0ed !important;
+}
+
+.bg-light-danger {
+    background: rgba(255, 0, 0, 0.144) !important;
+}
+
+/* ======================= Start-BgColor ======================= */
+
+/* ======================= Start-TextColor ======================= */
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-secondary {
+    color: var(--secondary);
+}
+
+.text-tertiary {
+    color: var(--tertiary);
+}
+
+.text-forth {
+    color: var(--forth);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-info {
+    color: var(--info);
+}
+
+.text-white {
+    color: var(--white);
+}
+
+.text-gray {
+    color: var(--gray);
+}
+
+.text-dark {
+    color: var(--dark);
+}
+
+/* ======================= End-TextColor ======================= */
+
+/* ======================= Start-Border ======================= */
+
+.border-primary {
+    border: 1px solid var(--primary);
+}
+
+.border-secondary {
+    border: 1px solid var(--secondary);
+}
+
+.border-tertiary {
+    border: 1px solid var(--tertiary);
+}
+
+.border-forth {
+    border: 1px solid var(--forth);
+}
+
+.border-success {
+    border: 1px solid var(--success);
+}
+
+.border-warning {
+    border: 1px solid var(--warning);
+}
+
+.border-danger {
+    border: 1px solid var(--danger);
+}
+
+.border-info {
+    border: 1px solid var(--info);
+}
+
+.border-white {
+    border: 1px solid var(--white);
+}
+
+.border-gray {
+    border: 1px solid var(--gray);
+}
+
+.border-dark {
+    border: 1px solid var(--dark);
+}
+
+/* ======================= End-Border ======================= */
+
+/* ======================= Start-ApexCharts Themes ======================= */
+.apexcharts-legend-text {
+    color: var(--dark) !important;
+}
+
+.apexcharts-text {
+    fill: var(--dark);
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label,
+.apexcharts-yaxis-title text {
+    fill: var(--gray) !important;
+}
+
+.apexcharts-gridline {
+    stroke: var(--tertiary) !important;
+}
+
+.apexcharts-pie-area,
+.apexcharts-donut-slice {
+    stroke: var(--white) !important;
+}
+
+.dark-mode {
+    .apexcharts-canvas {
+        .apexcharts-legend-text {
+            color: var(--dark) !important;
+        }
+
+        .apexcharts-text,
+        .apexcharts-title-text {
+            fill: var(--dark) !important;
+        }
+
+        .apexcharts-datalabel-label {
+            fill: var(--gray) !important;
+        }
+
+        .apexcharts-datalabel-value {
+            fill: var(--dark) !important;
+        }
+
+        .apexcharts-xaxis-label,
+        .apexcharts-yaxis-label,
+        .apexcharts-yaxis-title text {
+            fill: var(--gray) !important;
+        }
+
+        .apexcharts-gridline {
+            stroke: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .apexcharts-pie-area,
+        .apexcharts-donut-slice {
+            stroke: var(--white) !important;
+        }
+
+        .apexcharts-tooltip {
+            background: var(--white) !important;
+            border-color: var(--tertiary) !important;
+            color: var(--dark) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+
+            .apexcharts-tooltip-title {
+                background: var(--tertiary) !important;
+                border-bottom-color: var(--tertiary) !important;
+                color: var(--dark) !important;
+            }
+        }
+    }
+}
+
+/* ======================= End-ApexCharts Themes ======================= */
+
+/* ======================= Start-FontFamily ======================= */
+
+* {
+    font-family: "Poppins", sans-serif !important;
+}
+
+p {
+    line-height: 26px !important;
+
+    @media (max-width: 640px) {
+        line-height: 20px !important;
+    }
+}
+
+input,
+::placeholder {
+    @media (max-width: 640px) {
+        font-size: 13px !important;
+    }
+}
+
+/* ======================= End-FontFamily ======================= */
+
+/* ======================= Start-scrollbar ======================= */
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--forth);
+}
+
+.newscroll::-webkit-scrollbar {
+    width: 0px;
+}
+
+/* ======================= End-scrollbar ======================= */
+
+/* ======================= Start-Fontsize ======================= */
+.largehead-text {
+    font-size: 130px !important;
+    margin: 0px !important;
+    line-height: 130px !important;
+
+    @media (max-width: 640px) {
+        font-size: 42px !important;
+        margin: 0px !important;
+        line-height: 48px !important;
+    }
+}
+
+.largemid-text {
+    font-size: 80px !important;
+    margin: 0px !important;
+    line-height: 85px !important;
+
+    @media (max-width: 640px) {
+        font-size: 42px !important;
+        margin: 0px !important;
+        line-height: 48px !important;
+    }
+}
+
+.large-text {
+    font-size: 52px !important;
+    margin: 0px !important;
+    line-height: 60px !important;
+
+    @media (max-width: 640px) {
+        font-size: 32px !important;
+        margin: 0px !important;
+        line-height: 43px !important;
+    }
+}
+
+.head-text {
+    font-size: 34px !important;
+    line-height: 44px !important;
+    margin: 0px !important;
+
+    @media (max-width: 640px) {
+        font-size: 24px !important;
+        margin: 0px !important;
+        line-height: 36px !important;
+    }
+}
+
+.title-text {
+    font-size: 23px !important;
+    margin: 0px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        margin: 0px !important;
+    }
+}
+
+.mid-text {
+    font-size: 17px !important;
+    line-height: 22px !important;
+    margin: 0px !important;
+}
+
+.headmini-text {
+    font-size: 15px !important;
+    line-height: 20px !important;
+    margin: 0px !important;
+}
+
+.largepara-text {
+    font-size: 24px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
+}
+
+.headpara-text {
+    font-size: 20px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 18px !important;
+        line-height: 26px !important;
+    }
+}
+
+.midpara-text {
+    font-size: 17px !important;
+
+    @media (max-width: 640px) {
+        font-size: 15px !important;
+        line-height: 21px !important;
+    }
+}
+
+.para-text {
+    font-size: 15px !important;
+    line-height: 22px !important;
+
+    @media (max-width: 640px) {
+        font-size: 15px !important;
+    }
+}
+
+.small-text {
+    font-size: 13px !important;
+    line-height: 20px !important;
+
+    @media (max-width: 640px) {
+        font-size: 13.5px !important;
+    }
+}
+
+.mini-text {
+    font-size: 11.5px !important;
+    line-height: 16px !important;
+}
+
+/* ======================= End-Fontsize ======================= */

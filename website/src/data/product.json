@@ -1,0 +1,163 @@
+[
+  {
+    "id": 101,
+    "isBanner": true,
+    "title": "Saving $30 for Lighting",
+    "subtitle": "Home & Decor",
+    "buttonText": "Shop Now",
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 102,
+    "name": "Loop Sofa Armrest",
+    "category": "SOFA",
+    "vendor": "FoxEcom",
+    "type": "Sofas",
+    "price": 3289.00,
+    "priceFormatted": "$3289.00",
+    "originalPrice": 3369.00,
+    "originalPriceFormatted": "$3369.00",
+    "badges": [{ "text": "Sale", "bg": "#C8281E" }],
+    "colors": ["#8096A6", "#ADC5D6"],
+    "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 12,
+    "description": "Loop Sofa Armrest — premium upholstery, built for comfort and durability. Ideal for modern living rooms."
+  },
+  {
+    "id": 103,
+    "name": "Spoke Sofa TonePlay",
+    "category": "SOFAS",
+    "vendor": "FoxEcom",
+    "type": "Sofas",
+    "price": 3429.00,
+    "priceFormatted": "$3429.00",
+    "badges": [
+      { "text": "Best Choice!", "bg": "#1D4ED8" },
+      { "text": "New", "bg": "#15803D" }
+    ],
+    "colors": ["#E6DFD5"],
+    "image": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 8,
+    "description": "Spoke Sofa TonePlay crafted with premium materials and contemporary design."
+  },
+  {
+    "id": 104,
+    "name": "Feast Chair",
+    "category": "CHAIRS",
+    "vendor": "FoxEcom",
+    "type": "Chairs",
+    "price": 390.00,
+    "priceFormatted": "$390.00",
+    "colors": ["#C4A484"],
+    "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581539250439-c96689b516dd?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 18,
+    "description": "Feast Chair — ergonomic and stylish, perfect for dining and lounge areas."
+  },
+  {
+    "id": 105,
+    "name": "Shell Velvet Armchair",
+    "category": "CHAIRS",
+    "vendor": "FoxEcom",
+    "type": "Chairs",
+    "price": 480.00,
+    "priceFormatted": "$480.00",
+    "badges": [{ "text": "Best Choice!", "bg": "#1D4ED8" }],
+    "colors": ["#4682B4"],
+    "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580481077195-c3a821458312?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 6,
+    "description": "Shell Velvet Armchair — a luxurious accent chair with velvet finish."
+  },
+  {
+    "id": 106,
+    "name": "Leather Dining Chair",
+    "category": "CHAIRS",
+    "vendor": "FoxEcom",
+    "type": "Chairs",
+    "price": 290.00,
+    "priceFormatted": "$290.00",
+    "colors": ["#5C4033"],
+    "image": "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 24,
+    "description": "Leather Dining Chair — durable leather seating with modern silhouette."
+  },
+  {
+    "id": 107,
+    "name": "Minimal Yellow Chair",
+    "category": "CHAIRS",
+    "vendor": "FoxEcom",
+    "type": "Chairs",
+    "price": 180.00,
+    "priceFormatted": "$180.00",
+    "badges": [{ "text": "New", "bg": "#15803D" }],
+    "colors": ["#FACC15"],
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1561677843-39dee7a319ca?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 30,
+    "description": "Minimal Yellow Chair — playful color with compact footprint for small spaces."
+  },
+  {
+    "id": 108,
+    "name": "Cross Wooden Chair",
+    "category": "CHAIRS",
+    "vendor": "FoxEcom",
+    "type": "Chairs",
+    "price": 320.00,
+    "priceFormatted": "$320.00",
+    "originalPrice": 380.00,
+    "originalPriceFormatted": "$380.00",
+    "badges": [{ "text": "Sale", "bg": "#C8281E" }],
+    "colors": ["#A0522D", "#2F4F4F"],
+    "image": "https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=600&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80"
+    ],
+    "inStock": true,
+    "stockCount": 14,
+    "description": "Cross Wooden Chair — classic wood finish, sturdy build and comfortable seating."
+  }
+]
