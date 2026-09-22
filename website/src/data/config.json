@@ -5,69 +5,9 @@
       "HeaderType": 1,
       "HeaderCategory": 1,
       "HeaderNavMenu": "nav",
-      "HeaderSticky": true,
+      "HeaderSticky": false,
       "HeaderTopBar": false,
-      "HeaderBottomBar": true
-    }
-  ],
-  "HeroBanner": [
-    {
-      "HeroBannerVersion": 1,
-      "HeroBannerType": 1,
-      "HeroBannerText": 1,
-      "HeroBannerImage": 1
-    }
-  ],
-  "Category": [
-    {
-      "CategoryVersion": 3
-    }
-  ],
-  "About": [
-    {
-      "AboutVersion": 2,
-      "AboutType": 2,
-      "AboutSide": "left",
-      "AboutLeft": 1,
-      "AboutRight": 4
-    }
-  ],
-  "Service": [
-    {
-      "ServiceVersion": 1
-    }
-  ],
-  "Patch": [
-    {
-      "PatchVersion": 1
-    }
-  ],
-  "Feeds": [
-    {
-      "FeedsVersion": 1
-    }
-  ],
-  "Testimonial": [
-    {
-      "TestimonialVersion": 1
-    }
-  ],
-  "Blog": [
-    {
-      "BlogVersion": 1
-    }
-  ],
-  "Connect": [
-    {
-      "ConnectVersion": 1
-    }
-  ],
-  "Footer": [
-    {
-      "FooterVersion": 1,
-      "FooterSocial": true,
-      "FooterTopBar": true,
-      "FooterBottomBar": true
+      "HeaderBottomBar": false
     }
   ]
 }

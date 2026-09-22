@@ -13,7 +13,7 @@ const Container = memo(
     (
       {
         children,
-        version = "v2",
+        version = "v4",
         className = "",
         style = {},
         as: Component = "section",
