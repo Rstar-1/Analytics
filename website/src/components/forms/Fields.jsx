@@ -18,6 +18,137 @@ import {
 
 const YEARS = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - 15 + i);
 
+const SelectDropdown = React.memo(
+  ({
+    value,
+    options = [],
+    onChange,
+    isOpen,
+    onToggle,
+    onClose,
+    placeholder = "Select",
+    className = "",
+    style = {},
+    maxHeight = 138,
+  }) => {
+    const ref = useRef(null);
+    const activeItemRef = useRef(null);
+
+    useEffect(() => {
+      if (!isOpen) return;
+      const handleOutside = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+          onClose?.();
+        }
+      };
+      document.addEventListener("mousedown", handleOutside);
+      document.addEventListener("touchstart", handleOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleOutside);
+        document.removeEventListener("touchstart", handleOutside);
+      };
+    }, [isOpen, onClose]);
+
+    useEffect(() => {
+      if (isOpen && activeItemRef.current) {
+        activeItemRef.current.scrollIntoView({ block: "nearest" });
+      }
+    }, [isOpen]);
+
+    const selectedOpt = options.find((opt) => getOptValue(opt) === value);
+    const displayValue =
+      selectedOpt !== undefined
+        ? getOptLabel(selectedOpt)
+        : value !== undefined && value !== null
+          ? value
+          : placeholder;
+
+    return (
+      <div
+        ref={ref}
+        className={`dropdown-box relative ${className}`}
+        style={{
+          height: "36px",
+          borderRadius: "5px",
+          border: "1px solid #ececec",
+          backgroundColor: "#fff",
+          zIndex: isOpen ? 50 : 1,
+          ...style,
+        }}
+      >
+        <div
+          className="flex items-center justify-between h-full px-10 cursor-pointer text-left"
+          onClick={onToggle}
+        >
+          <p className="mini-text text-gray line-clamp1 font-500">{displayValue}</p>
+          <Icon
+            name="ChevronDown"
+            width="14"
+            height="14"
+            stroke="gray"
+            style={{
+              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "0.2s",
+              flexShrink: 0,
+            }}
+          />
+        </div>
+
+        {isOpen && (
+          <div
+            className="absolute z-20 mt-4 w-full bg-white rounded-5 overflow-auto border-ec text-left b-shadow"
+            style={{ maxHeight, top: "100%", left: 0 }}
+          >
+            {options.map((opt) => {
+              const optVal = getOptValue(opt);
+              const optLabel = getOptLabel(opt);
+              const isChecked = value === optVal;
+
+              const handleSelect = (e) => {
+                e?.stopPropagation?.();
+                onChange?.(optVal);
+                onClose?.();
+              };
+
+              return (
+                <div
+                  key={optVal}
+                  ref={isChecked ? activeItemRef : null}
+                  className="flex items-center gap-8 p-10 cursor-pointer mini-text text-gray bordb"
+                  style={{
+                    userSelect: "none",
+                    backgroundColor: isChecked ? "rgba(99, 102, 241, 0.08)" : "transparent",
+                    color: isChecked ? "var(--primary, #1e74db)" : "inherit",
+                    fontWeight: isChecked ? "600" : "400",
+                    transition: "background-color 0.15s ease",
+                  }}
+                  onClick={handleSelect}
+                  onMouseEnter={(e) => {
+                    if (!isChecked) e.currentTarget.style.backgroundColor = "#f9fafb";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isChecked) e.currentTarget.style.backgroundColor = "transparent";
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleSelect}
+                    onClick={(e) => e.stopPropagation()}
+                    className="cursor-pointer"
+                  />
+                  <span className="flex-1 cursor-pointer truncate">{optLabel}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+SelectDropdown.displayName = "SelectDropdown";
+
 const CalendarDropdown = React.memo(
   ({
     isRange = false,
@@ -29,6 +160,17 @@ const CalendarDropdown = React.memo(
     onChange,
     onClose,
   }) => {
+    const [openSelect, setOpenSelect] = useState(null);
+
+    const monthOptions = useMemo(
+      () => MONTH_NAMES.map((m, i) => ({ label: m, value: i })),
+      []
+    );
+    const yearOptions = useMemo(
+      () => YEARS.map((y) => ({ label: String(y), value: y })),
+      []
+    );
+
     const fromDate = isRange ? value?.fromDate || "" : "";
     const toDate = isRange ? value?.toDate || "" : "";
 
@@ -78,67 +220,67 @@ const CalendarDropdown = React.memo(
 
     return (
       <div
-        className="absolute z-10 mt-4 bg-white rounded-5 p-12 w-full text-center shadow-md border-ec"
-        style={{ top: "100%", left: 0, boxShadow: "0 4px 14px rgba(0,0,0,0.1)" }}
+        className="absolute z-10 mt-5 bg-white w-full text-center b-shadow"
+        style={{ top: "100%", left: 0 }}
       >
-        <div className="grid-cols-2 gap-3 mb-8">
-          <select
-            value={datepickerM}
-            onChange={(e) => setDatepickerM(Number(e.target.value))}
-            className="mini-text border-0 rounded px-2 py-2"
-          >
-            {MONTH_NAMES.map((m, i) => (
-              <option key={m} value={i}>{m}</option>
+        <div className="p-12">
+          <div className="grid-cols-2 gap-8 mb-8 text-left">
+            <SelectDropdown
+              value={datepickerM}
+              options={monthOptions}
+              isOpen={openSelect === "month"}
+              onToggle={() => setOpenSelect((prev) => (prev === "month" ? null : "month"))}
+              onClose={() => setOpenSelect((prev) => (prev === "month" ? null : prev))}
+              onChange={(val) => setDatepickerM(Number(val))}
+            />
+            <SelectDropdown
+              value={datepickerY}
+              options={yearOptions}
+              isOpen={openSelect === "year"}
+              onToggle={() => setOpenSelect((prev) => (prev === "year" ? null : "year"))}
+              onClose={() => setOpenSelect((prev) => (prev === "year" ? null : prev))}
+              onChange={(val) => setDatepickerY(Number(val))}
+            />
+          </div>
+
+          <div className="flex items-center justify-between mb-8">
+            <div className="small-text text-gray font-500 cursor-pointer" onClick={() => changeMonth(-1)}>◀</div>
+            <p className="mini-text text-dark font-500">{MONTH_NAMES[datepickerM]} {datepickerY}</p>
+            <div className="small-text text-gray font-500 cursor-pointer" onClick={() => changeMonth(1)}>▶</div>
+          </div>
+
+          <div className="grid-cols-7 gap-4">
+            {(isRange ? DAY_NAMES_MON : DAY_NAMES_SUN).map((d) => (
+              <p className="mini-text text-dark font-500" key={d}>{d}</p>
             ))}
-          </select>
-          <select
-            value={datepickerY}
-            onChange={(e) => setDatepickerY(Number(e.target.value))}
-            className="mini-text border-0 rounded px-2 py-2"
-          >
-            {YEARS.map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-        </div>
 
-        <div className="flex items-center justify-between mb-8">
-          <div className="small-text text-gray font-500 cursor-pointer" onClick={() => changeMonth(-1)}>◀</div>
-          <p className="mini-text text-dark font-500">{MONTH_NAMES[datepickerM]} {datepickerY}</p>
-          <div className="small-text text-gray font-500 cursor-pointer" onClick={() => changeMonth(1)}>▶</div>
-        </div>
+            {days.map((d, i) => {
+              const cellDate = d ? `${datepickerY}-${pad(datepickerM + 1)}-${pad(d)}` : "";
+              const isStart = isRange && fromDate && cellDate === fromDate;
+              const isEnd = isRange && toDate && cellDate === toDate;
+              const isInRange = isRange && d && fromDate && toDate && new Date(cellDate) > new Date(fromDate) && new Date(cellDate) < new Date(toDate);
+              const isSelected = !isRange && d && value === cellDate;
 
-        <div className="grid-cols-7 gap-4">
-          {(isRange ? DAY_NAMES_MON : DAY_NAMES_SUN).map((d) => (
-            <p className="mini-text text-dark font-500" key={d}>{d}</p>
-          ))}
+              const bg = (isStart || isEnd || isSelected)
+                ? "var(--secondary, #3b82f6)"
+                : isInRange ? "rgba(99, 102, 241, 0.15)" : "transparent";
 
-          {days.map((d, i) => {
-            const cellDate = d ? `${datepickerY}-${pad(datepickerM + 1)}-${pad(d)}` : "";
-            const isStart = isRange && fromDate && cellDate === fromDate;
-            const isEnd = isRange && toDate && cellDate === toDate;
-            const isInRange = isRange && d && fromDate && toDate && new Date(cellDate) > new Date(fromDate) && new Date(cellDate) < new Date(toDate);
-            const isSelected = !isRange && d && value === cellDate;
+              const color = (isStart || isEnd || isSelected)
+                ? "var(--white, #fff)"
+                : d ? "var(--gray, #4b5563)" : "transparent";
 
-            const bg = (isStart || isEnd || isSelected)
-              ? "var(--secondary, #3b82f6)"
-              : isInRange ? "rgba(99, 102, 241, 0.15)" : "transparent";
-
-            const color = (isStart || isEnd || isSelected)
-              ? "var(--white, #fff)"
-              : d ? "var(--gray, #4b5563)" : "transparent";
-
-            return (
-              <p
-                key={i}
-                className={`mini-text font-500 flex items-center justify-center ${d ? "cursor-pointer" : ""}`}
-                onClick={() => handleDayClick(d)}
-                style={{ width: "100%", height: "36px", background: bg, color, borderRadius: 2 }}
-              >
-                {d}
-              </p>
-            );
-          })}
+              return (
+                <p
+                  key={i}
+                  className={`mini-text font-500 flex items-center justify-center ${d ? "cursor-pointer" : ""}`}
+                  onClick={() => handleDayClick(d)}
+                  style={{ width: "100%", height: "36px", background: bg, color, borderRadius: 2 }}
+                >
+                  {d}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
