@@ -9,6 +9,7 @@ export const MODAL_WIDTHS = {
   lg: "50%",
   xl: "60%",
   full: "80%",
+  fullscreen: "100%",
 };
 
 export const Modal = memo(
@@ -45,8 +46,9 @@ export const Modal = memo(
     }, [isControlled]);
 
     const isSidebar = type === "sidebar";
+    const isFullscreen = size === "fullscreen";
 
-    const wrapperClass = isSidebar
+    const wrapperClass = isSidebar || isFullscreen
       ? "flex fixed top-0 left-0 w-full h-100 z-99"
       : "flex items-center justify-center fixed top-0 left-0 w-full h-100 z-99 overflow-hidden";
 
@@ -54,25 +56,27 @@ export const Modal = memo(
       () =>
         isSidebar
           ? {
-              justifyContent: placement === "right" ? "flex-end" : "flex-start",
-              alignItems: "stretch",
-            }
+            justifyContent: placement === "right" ? "flex-end" : "flex-start",
+            alignItems: "stretch",
+          }
           : undefined,
       [isSidebar, placement]
     );
 
     const cardClass = isSidebar
-      ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto h-100 sm-w-full ${
-          placement === "right" ? "animate-sidebar-right" : "animate-sidebar-left"
-        }`
-      : "bg-white relative z-999 rounded-10 b-shadow border-ec p-0 overflow-auto animate-modal-scale sm-w-full";
+      ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto h-100 sm-w-full ${placement === "right" ? "animate-sidebar-right" : "animate-sidebar-left"
+      }`
+      : isFullscreen
+        ? "bg-white relative z-999 b-shadow border-ec p-0 overflow-auto w-full h-100 animate-modal-scale"
+        : "bg-white relative z-999 rounded-10 b-shadow border-ec p-0 overflow-auto animate-modal-scale sm-w-full";
 
     const sizeStyle = useMemo(
       () => ({
-        width: MODAL_WIDTHS[size] || MODAL_WIDTHS.sm,
+        width: MODAL_WIDTHS[size] || size || MODAL_WIDTHS.sm,
         maxWidth: "100%",
+        ...(isFullscreen ? { height: "100vh", borderRadius: 0 } : {}),
       }),
-      [size]
+      [size, isFullscreen]
     );
 
     return (
@@ -119,12 +123,12 @@ export const Modal = memo(
               <div
                 className="overflow-auto w-full"
                 style={
-                  isSidebar
-                    ? { height: "calc(100vh - 60px)" }
+                  isSidebar || isFullscreen
+                    ? { height: footer !== null ? "calc(100vh)" : "calc(100vh - 60px)" }
                     : {
-                        height: bodyHeight || "auto",
-                        maxHeight: bodyHeight ? undefined : "70vh",
-                      }
+                      height: bodyHeight || "auto",
+                      maxHeight: bodyHeight ? undefined : "70vh",
+                    }
                 }
               >
                 <div className="px-20 py-10">{children}</div>

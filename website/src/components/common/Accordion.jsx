@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, memo } from "react";
+import React, { useState, useEffect, useCallback, useRef, memo } from "react";
 
 export const AccordionItem = memo(
   ({
@@ -79,10 +79,58 @@ const Accordion = memo(
     version = "v1",
     className = "",
     itemClassName = "",
+    defaultOpenIndex,
+    defaultOpenId,
+    defaultOpenIds,
     children,
   }) => {
     const isMulti = Boolean(allowMultiple === true || allowMultiple === "true");
-    const [openIds, setOpenIds] = useState([]);
+
+    const getInitialOpenIds = useCallback(() => {
+      if (defaultOpenIds && Array.isArray(defaultOpenIds)) return defaultOpenIds;
+      if (defaultOpenId !== undefined) return [defaultOpenId];
+      if (typeof defaultOpenIndex === "number" && items && items.length > 0) {
+        const idx = Math.max(0, Math.min(items.length - 1, defaultOpenIndex));
+        const item = items[idx];
+        return [item?.id !== undefined ? item.id : idx];
+      }
+      if (items && items.length > 0) {
+        const fromItems = items
+          .filter((item) => item?.defaultOpen || item?.isOpen)
+          .map((item, idx) => (item.id !== undefined ? item.id : idx));
+        if (fromItems.length > 0) {
+          return isMulti ? fromItems : [fromItems[0]];
+        }
+      }
+      if (children) {
+        const childArr = React.Children.toArray(children).filter(React.isValidElement);
+        if (typeof defaultOpenIndex === "number" && childArr.length > 0) {
+          const idx = Math.max(0, Math.min(childArr.length - 1, defaultOpenIndex));
+          const child = childArr[idx];
+          return [child?.props?.id !== undefined ? child.props.id : idx];
+        }
+        const fromChildren = childArr
+          .filter((c) => c?.props?.defaultOpen || c?.props?.isOpen)
+          .map((c, idx) => (c?.props?.id !== undefined ? c.props.id : idx));
+        if (fromChildren.length > 0) {
+          return isMulti ? fromChildren : [fromChildren[0]];
+        }
+      }
+      return [];
+    }, [defaultOpenIds, defaultOpenId, defaultOpenIndex, items, children, isMulti]);
+
+    const [openIds, setOpenIds] = useState(getInitialOpenIds);
+    const hasInitializedRef = useRef(false);
+
+    useEffect(() => {
+      if (!hasInitializedRef.current && items && items.length > 0) {
+        hasInitializedRef.current = true;
+        const initial = getInitialOpenIds();
+        if (initial.length > 0) {
+          setOpenIds(initial);
+        }
+      }
+    }, [items, getInitialOpenIds]);
 
     // Keep openIds valid if switching dynamically between multi and single
     useEffect(() => {

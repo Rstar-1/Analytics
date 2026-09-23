@@ -1,20 +1,24 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import Container from '../../components/common/Container';
 import Button from '../../components/common/Button';
 import Fields from '../../components/forms/Fields';
-import Icon from '../../components/common/Icon';
 import { DeleteModal } from '../../components/common/Modal';
+import CanvasToolbar from '../../components/layout/generic/CanvasToolbar';
 
 const INITIAL_STOPS = [
-  { id: 1, title: 'Ahmedabad Plant', calloutTitle: 'Ahmedabad Plant', location: 'Vatva GIDC, Ahmedabad, GJ', role: 'Manufacturer', badge: 'Manufacturer', badgeColor: 'success', color: '#10b981', lat: 22.9623, lng: 72.6393 },
-  { id: 2, title: 'Indore Warehouse', calloutTitle: 'Indore Warehouse', location: 'Pithampur Industrial Area, MP', role: 'Distributor', badge: 'Distributor', badgeColor: 'purple', color: '#8b5cf6', lat: 22.6174, lng: 75.6022 },
-  { id: 3, title: 'Nagpur Sales Office', calloutTitle: 'Nagpur Sales Office', location: 'Wardha Road, Nagpur, MH', role: 'Sales rep', badge: 'Sales rep', badgeColor: 'primary', color: '#3b82f6', lat: 21.1458, lng: 79.0882 },
-  { id: 4, title: 'Hyderabad Hub', calloutTitle: 'Hyderabad Hub', location: 'Patancheru, Hyderabad, TS', role: 'Distributor', badge: 'Distributor', badgeColor: 'warning', color: '#f97316', lat: 17.5256, lng: 78.2687 },
-  { id: 5, title: 'Bengaluru Enterprise', calloutTitle: 'Bengaluru Customer', location: 'Electronic City, Bengaluru, KA', role: 'Enterprise account', badge: 'Customer', badgeColor: 'danger', color: '#f43f5e', lat: 12.8452, lng: 77.6602 },
-  { id: 6, title: 'Chennai Support', calloutTitle: 'Chennai Support', location: 'Guindy Industrial Estate, Chennai, TN', role: 'Post-sale support', badge: 'Support', badgeColor: 'info', color: '#06b6d4', lat: 13.0067, lng: 80.2206 },
+  { id: 1, name: "Rangeela Stationery Mart", title: "Rangeela Stationery Mart", calloutTitle: "Rangeela Stationery", location: "Dadar East, Mumbai", role: "Stationery Mart", badge: "Store", badgeColor: "primary", color: "#2563eb", lat: 19.0190, lng: 72.8418 },
+  { id: 2, name: "Family Stationery Mart", title: "Family Stationery Mart", calloutTitle: "Family Stationery", location: "Dadar West, Mumbai", role: "Stationery Mart", badge: "Store", badgeColor: "success", color: "#10b981", lat: 19.0182, lng: 72.8398 },
+  { id: 3, name: "SHRIRAM STATIONERY MART", title: "SHRIRAM STATIONERY MART", calloutTitle: "Shriram Stationery", location: "Dadar West, Mumbai", role: "Stationery Mart", badge: "Store", badgeColor: "purple", color: "#8b5cf6", lat: 19.0170, lng: 72.8395 },
+  { id: 4, name: "Arihant Stationery Mart", title: "Arihant Stationery Mart", calloutTitle: "Arihant Stationery", location: "Dadar West, Mumbai", role: "Stationery Mart", badge: "Store", badgeColor: "warning", color: "#f59e0b", lat: 19.0160, lng: 72.8376 },
+  { id: 5, name: "Monto Stationery & Xerox", title: "Monto Stationery & Xerox", calloutTitle: "Monto Stationery", location: "Matunga, Mumbai", role: "Stationery & Xerox", badge: "Services", badgeColor: "info", color: "#06b6d4", lat: 19.0260, lng: 72.8402 },
+  { id: 6, name: "Monex Stationers", title: "Monex Stationers", calloutTitle: "Monex Stationers", location: "Fort, Mumbai", role: "Stationers", badge: "Supplies", badgeColor: "purple", color: "#ec4899", lat: 18.9348, lng: 72.8350 },
+  { id: 7, name: "Mayur Stationery Stores", title: "Mayur Stationery Stores", calloutTitle: "Mayur Stationery", location: "Fort, Mumbai", role: "Stationery Stores", badge: "Store", badgeColor: "success", color: "#14b8a6", lat: 18.9328, lng: 72.8341 },
+  { id: 8, name: "Rinkal Stationery Mart", title: "Rinkal Stationery Mart", calloutTitle: "Rinkal Stationery", location: "Fort, Mumbai", role: "Stationery Mart", badge: "Store", badgeColor: "primary", color: "#6366f1", lat: 18.9340, lng: 72.8333 },
+  { id: 9, name: "Globe Stationery And Xerox", title: "Globe Stationery And Xerox", calloutTitle: "Globe Stationery", location: "Fort, Mumbai", role: "Stationery & Xerox", badge: "Services", badgeColor: "warning", color: "#f97316", lat: 18.9348, lng: 72.8269 },
+  { id: 10, name: "Perfect Enterprises", title: "Perfect Enterprises", calloutTitle: "Perfect Enterprises", location: "Fort, Mumbai", role: "Office Supplies", badge: "Enterprise", badgeColor: "info", color: "#84cc16", lat: 18.9352, lng: 72.8274 },
 ];
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -27,7 +31,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-const JourneyStats = memo(({ stopsCount, totalKm, isPinMode, onTogglePin }) => (
+const JourneyStats = memo(({ isPinMode, onTogglePin }) => (
   <div className="mt-10">
     <Button
       text={isPinMode ? 'Click on map to drop pin' : 'Pin New Location'}
@@ -40,10 +44,10 @@ const JourneyStats = memo(({ stopsCount, totalKm, isPinMode, onTogglePin }) => (
 ));
 JourneyStats.displayName = 'JourneyStats';
 
-const StopCard = memo(({ stop, isSelected, onSelect, onDelete }) => (
+const StopCard = memo(({ stop, isSelected, onSelect }) => (
   <div
     onClick={() => onSelect(stop)}
-    className={`p-12 rounded-5 ${isSelected ? 'bg-primary' : 'bg-white'
+    className={`p-12 rounded-5 mb-5 ${isSelected ? 'bg-primary' : 'bg-white'
       }`}
     style={{
       border: `0.5px solid ${isSelected ? 'var(--forth)' : 'var(--white)'}`
@@ -56,7 +60,7 @@ const StopCard = memo(({ stop, isSelected, onSelect, onDelete }) => (
       </div>
       <div className="w-85">
         <h6 className={`font-500 headmini-text line-clamp1 text-${isSelected ? 'white' : 'dark'}`}>
-          {stop.title}
+          {stop.name || stop.title}
         </h6>
         <p className={`font-300 text-muted mini-text text-${isSelected ? 'white' : 'dark'}`}>
           {stop.location}
@@ -67,117 +71,29 @@ const StopCard = memo(({ stop, isSelected, onSelect, onDelete }) => (
 ));
 StopCard.displayName = 'StopCard';
 
-/* --- Memoized Map Toolbar --- */
-const MapToolbar = memo(({ zoomPercent, isZoomOpen, onToggleZoom, onZoomIn, onZoomOut, onFitBounds }) => (
-  <div
-    className="flex items-center bg-white rounded-8 px-6 py-4 border-ec absolute"
-    style={{
-      top: 16,
-      left: 16,
-      zIndex: 1000,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
-      gap: '6px',
-    }}
-  >
-    <Button
-      version="icon"
-      icon="ArrowLeft"
-      bg="transparent"
-      color="gray"
-      className="p-6 rounded-6 border-0"
-      title="Undo"
-    />
-    <Button
-      version="icon"
-      icon="ArrowRight"
-      bg="transparent"
-      color="gray"
-      className="p-6 rounded-6 border-0"
-      title="Redo"
-    />
-    <div style={{ width: 1, height: 16, background: '#e2e8f0' }} />
-    <div className="relative">
-      <button
-        type="button"
-        onClick={onToggleZoom}
-        className="flex items-center gap-4 px-6 py-4 rounded-6 cursor-pointer bg-transparent border-0 font-600 mini-text text-dark"
-      >
-        <span>{zoomPercent}%</span>
-        <Icon name="ChevronDown" width={11} height={11} stroke="#64748b" />
-      </button>
-      {isZoomOpen && (
-        <div
-          className="flex flex-column bg-white rounded-8 py-4 border-ec absolute"
-          style={{
-            top: 'calc(100% + 6px)',
-            left: 0,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            zIndex: 1100,
-            minWidth: 100,
-          }}
-        >
-          <button
-            type="button"
-            onClick={onZoomIn}
-            className="px-12 py-6 text-left cursor-pointer bg-transparent border-0 mini-text text-dark hover-bg-forth"
-          >
-            Zoom In (+)
-          </button>
-          <button
-            type="button"
-            onClick={onZoomOut}
-            className="px-12 py-6 text-left cursor-pointer bg-transparent border-0 mini-text text-dark hover-bg-forth"
-          >
-            Zoom Out (-)
-          </button>
-          <button
-            type="button"
-            onClick={onFitBounds}
-            className="px-12 py-6 text-left cursor-pointer bg-transparent border-0 mini-text text-dark hover-bg-forth"
-          >
-            Fit Route
-          </button>
-        </div>
-      )}
-    </div>
-    <div style={{ width: 1, height: 16, background: '#e2e8f0' }} />
-    <Button
-      version="icon"
-      icon="Screen"
-      bg="transparent"
-      color="dark"
-      className="p-6 rounded-6 border-0"
-      onClick={onFitBounds}
-      title="Fit Route to View"
-    />
-  </div>
-));
-MapToolbar.displayName = 'MapToolbar';
-
-/* --- Memoized Route Legend --- */
 const RouteLegend = memo(() => (
   <div
-    className="flex flex-column bg-white rounded-8 p-12 border-ec absolute"
-    style={{
-      bottom: 24,
-      left: 24,
-      zIndex: 1000,
-      boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
-      minWidth: 150,
-    }}
+    className="grid-cols-1 bg-white rounded-8 p-12 z-999 bottom-0 left-0 m-12 b-shadow rounded-5 absolute"
+    style={{ minWidth: 150 }}
   >
-    <span className="font-600 text-dark mini-text mb-8">Route legend</span>
-    <div className="flex items-center gap-8 mb-6">
-      <span style={{ width: 16, height: 3, background: '#2563eb', borderRadius: 2 }} />
-      <span className="mini-text text-gray">Active journey path</span>
+    <h6 className="font-600 text-dark headmini-text">Route legend</h6>
+    <div className="flex items-center gap-8 mt-4">
+      <div className='w-10 flex justify-center'>
+        <span style={{ width: 16, height: 3, background: '#2563eb', borderRadius: 2 }} />
+      </div>
+      <p className="mini-text text-gray">Journey Path</p>
     </div>
-    <div className="flex items-center gap-8 mb-6">
-      <span style={{ width: 8, height: 8, background: '#10b981', borderRadius: '50%' }} />
-      <span className="mini-text text-gray">Manufacturer</span>
+    <div className="flex items-center gap-8 mt-4">
+      <div className='w-10 flex justify-center'>
+        <span style={{ width: 8, height: 8, background: '#2563eb', borderRadius: '50%' }} />
+      </div>
+      <p className="mini-text text-gray">Stationery Store</p>
     </div>
-    <div className="flex items-center gap-8">
-      <span style={{ width: 8, height: 8, background: '#f43f5e', borderRadius: '50%' }} />
-      <span className="mini-text text-gray">Customer</span>
+    <div className="flex items-center gap-8 mt-4">
+      <div className='w-10 flex justify-center'>
+        <span style={{ width: 8, height: 8, background: '#f97316', borderRadius: '50%' }} />
+      </div>
+      <p className="mini-text text-gray">Services & Xerox</p>
     </div>
   </div>
 ));
@@ -195,7 +111,6 @@ const Track = () => {
   const [isPinMode, setIsPinMode] = useState(false);
   const [stopToDelete, setStopToDelete] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(5);
-  const [isZoomMenuOpen, setIsZoomMenuOpen] = useState(false);
 
   const totalJourneyKm = useMemo(() => {
     if (stops.length < 2) return 0;
@@ -211,16 +126,16 @@ const Track = () => {
     if (!q) return stops;
     return stops.filter(
       (s) =>
-        s.title.toLowerCase().includes(q) ||
-        s.location.toLowerCase().includes(q) ||
-        s.role.toLowerCase().includes(q)
+        (s.name || s.title || '').toLowerCase().includes(q) ||
+        (s.location || '').toLowerCase().includes(q) ||
+        (s.role || '').toLowerCase().includes(q)
     );
   }, [stops, search]);
 
   const handleSelectStop = useCallback((stop) => {
     setSelectedStopId(stop.id);
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo([stop.lat, stop.lng], Math.max(7, mapInstanceRef.current.getZoom()), {
+      mapInstanceRef.current.flyTo([stop.lat, stop.lng], Math.max(15, mapInstanceRef.current.getZoom()), {
         duration: 1.2,
       });
     }
@@ -230,15 +145,15 @@ const Track = () => {
     if (!mapInstanceRef.current || stops.length === 0) return;
     const latLngs = stops.map((s) => [s.lat, s.lng]);
     const bounds = L.latLngBounds(latLngs);
-    mapInstanceRef.current.fitBounds(bounds, { padding: [60, 60], maxZoom: 8 });
+    mapInstanceRef.current.fitBounds(bounds, { padding: [60, 60], maxZoom: 14 });
   }, [stops]);
 
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
     const map = L.map(mapContainerRef.current, {
-      center: [18.5, 76.5],
-      zoom: 5,
+      center: [18.98, 72.835],
+      zoom: 12,
       zoomControl: false,
     });
 
@@ -255,7 +170,7 @@ const Track = () => {
     });
 
     const initialBounds = L.latLngBounds(INITIAL_STOPS.map((s) => [s.lat, s.lng]));
-    map.fitBounds(initialBounds, { padding: [50, 50], maxZoom: 6 });
+    map.fitBounds(initialBounds, { padding: [50, 50], maxZoom: 13 });
 
     return () => {
       map.remove();
@@ -420,7 +335,7 @@ const Track = () => {
               <p className="font-400 text-gray mini-text">{filteredStops.length} stops</p>
             </div>
 
-            <div className='mt-10 h-400 bg-forth p-12 rounded-5 overflow-auto grid-cols-1 gap-6'>
+            <div className='mt-10 h-400 bg-forth p-12 rounded-5 overflow-auto'>
               {filteredStops.map((stop) => (
                 <StopCard
                   key={stop.id}
@@ -436,22 +351,13 @@ const Track = () => {
 
         <div className="w-75 h-full relative bg-forth">
           <div ref={mapContainerRef} className="w-full h-full" />
-          <MapToolbar
-            zoomPercent={Math.round((zoomLevel / 6) * 100)}
-            isZoomOpen={isZoomMenuOpen}
-            onToggleZoom={() => setIsZoomMenuOpen((prev) => !prev)}
-            onZoomIn={() => {
-              mapInstanceRef.current?.zoomIn();
-              setIsZoomMenuOpen(false);
-            }}
-            onZoomOut={() => {
-              mapInstanceRef.current?.zoomOut();
-              setIsZoomMenuOpen(false);
-            }}
-            onFitBounds={() => {
-              handleFitBounds();
-              setIsZoomMenuOpen(false);
-            }}
+          <CanvasToolbar
+            zoomPercent={Math.round((zoomLevel / 13) * 100)}
+            onZoomIn={() => mapInstanceRef.current?.zoomIn()}
+            onZoomOut={() => mapInstanceRef.current?.zoomOut()}
+            onResetZoom={handleFitBounds}
+            onFitView={handleFitBounds}
+            fitViewTitle="Fit Route"
           />
 
           <RouteLegend />
@@ -463,7 +369,7 @@ const Track = () => {
         onClose={() => setStopToDelete(null)}
         onDelete={confirmDeleteStop}
         title="Remove Location Stop"
-        message={`Are you sure you want to remove "${stopToDelete?.title}" from the journey? The route will be recalculated.`}
+        message={`Are you sure you want to remove "${stopToDelete?.name || stopToDelete?.title}" from the journey? The route will be recalculated.`}
       />
     </Container>
   );

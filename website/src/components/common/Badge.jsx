@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import Icon from "./Icon";
 
 export const getBadgeTheme = (val) => {
@@ -101,6 +101,8 @@ export const Badge = memo(({
     iconPosition = "left",
     iconSize = 12,
     iconStrokeWidth = "2.5",
+    iconColor,
+    iconClassName = "",
     dot,
     capitalize = true,
     className = "",
@@ -176,11 +178,11 @@ export const Badge = memo(({
                     {...props}
                 >
                     {icon && iconPosition === "left" && (
-                        <Icon name={icon} width={iconSize} height={iconSize} strokeWidth={iconStrokeWidth} stroke="currentColor" />
+                        <Icon name={icon} width={iconSize} height={iconSize} strokeWidth={iconStrokeWidth} stroke={iconColor || "currentColor"} className={iconClassName} />
                     )}
                     <span>{label}</span>
                     {icon && iconPosition === "right" && (
-                        <Icon name={icon} width={iconSize} height={iconSize} strokeWidth={iconStrokeWidth} stroke="currentColor" />
+                        <Icon name={icon} width={iconSize} height={iconSize} strokeWidth={iconStrokeWidth} stroke={iconColor || "currentColor"} className={iconClassName} />
                     )}
                     {onRemove && (
                         <span

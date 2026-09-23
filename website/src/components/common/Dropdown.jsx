@@ -10,6 +10,7 @@ const ALIGN_STYLES = {
 const Dropdown = memo(({
   isOpen,
   onClose,
+  triggerRef,
   children,
   className = "",
   style = {},
@@ -21,25 +22,44 @@ const Dropdown = memo(({
 }) => {
   const dropdownRef = useRef(null);
 
-  const handleClickOutside = useCallback((event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      onClose?.();
-    }
-  }, [onClose]);
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (!dropdownRef.current) return;
+      const target = event.target;
+      const el = target?.nodeType === 3 ? target.parentElement : target;
+      if (!el) return;
 
-  const handleKeyDown = useCallback((event) => {
-    if (event.key === "Escape") {
+      if (dropdownRef.current.contains(el)) return;
+      if (triggerRef?.current && triggerRef.current.contains(el)) return;
+      if (
+        dropdownRef.current.previousElementSibling &&
+        dropdownRef.current.previousElementSibling.contains(el)
+      ) {
+        return;
+      }
+
       onClose?.();
-    }
-  }, [onClose]);
+    },
+    [onClose, triggerRef]
+  );
+
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.key === "Escape") {
+        onClose?.();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     if (!isOpen || !onClose) return;
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleClickOutside, true);
     document.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("pointerdown", handleClickOutside, true);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose, handleClickOutside, handleKeyDown]);
@@ -50,8 +70,7 @@ const Dropdown = memo(({
     zIndex: 1000,
     minWidth: align === "full" ? "100%" : minWidth,
     padding,
-    boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.04)",
-    borderRadius: "8px",
+    borderRadius: "2px",
     border: "1px solid #e2e8f0",
     ...(ALIGN_STYLES[align] || ALIGN_STYLES.left),
     ...style,
@@ -67,32 +86,29 @@ const Dropdown = memo(({
       {...props}
     >
       {items ? (
-        <div className="flex flex-column gap-2 p-6">
+        <div className="grid-cols-1 gap-6">
           {items.map((item, idx) =>
             item.divider ? (
               <div key={idx} style={{ height: 1, backgroundColor: "#e2e8f0", margin: "4px 0" }} />
             ) : (
-              <button
+              <div
                 key={idx}
-                type="button"
                 disabled={item.disabled}
                 onClick={(e) => {
                   item.onClick?.(e);
                   onClose?.();
                 }}
-                className={`w-full text-left flex items-center gap-8 px-12 py-8 rounded-4 font-13 cursor-pointer transition-all border-none ${
-                  item.danger ? "text-danger hover-bg-danger-light" : "text-dark hover-bg-light"
-                } ${item.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-                style={{ background: "transparent" }}
+                className={`w-full text-left flex items-center gap-8 px-10 py-7 bordb ${item.danger ? "text-danger" : "text-dark"
+                  } ${item.disabled ? "cursor-not-allowed" : ""}`}
               >
-                {item.icon && <span className="flex items-center">{item.icon}</span>}
-                <span className="flex-grow">{item.label}</span>
+                {item.icon && <p className="text-gray mini-text font-400">{item.icon}</p>}
+                <p className="text-gray mini-text font-400">{item.label}</p>
                 {item.badge && (
-                  <span className="mini-badge bg-primary text-white px-6 py-2 rounded-10 font-10">
+                  <p className="text-gray mini-text font-400">
                     {item.badge}
-                  </span>
+                  </p>
                 )}
-              </button>
+              </div>
             )
           )}
         </div>

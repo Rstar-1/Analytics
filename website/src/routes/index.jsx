@@ -9,6 +9,7 @@ import Loader from '../components/common/generic/Loader';
 const Home = lazy(() => import('../pages/home/Home'));
 const Track = lazy(() => import('../pages/tracking/Track'));
 const Node = lazy(() => import('../pages/nodes/Node'));
+const Slide = lazy(() => import('../pages/slides/Slide'));
 
 function AppRoutes() {
     return (
@@ -19,6 +20,7 @@ function AppRoutes() {
                     <Route path="home" element={<Home />} />
                     <Route path="tracking" element={<Track />} />
                     <Route path="node" element={<Node />} />
+                    <Route path="slide" element={<Slide />} />
                 </Route>
                 <Route path="*" element={<h2 style={{ textAlign: 'center', padding: '100px 20px' }}>404 - Page Not Found</h2>} />
             </Routes>

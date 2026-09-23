@@ -5,7 +5,7 @@ const VERSION_CLASSES = {
   v0: "px-16 py-4 sm-px-12 sm-py-4 mini-text",
   v1: "px-20 py-9 para-text",
   v2: "px-19 py-8 sm-px-10 sm-py-7 mini-text",
-  v3: "w-full py-9 sm-py-12 mini-text",
+  v3: "w-full py-9 sm-py-12 small-text",
   icon: "p-8",
   none: "",
 };
@@ -23,7 +23,7 @@ const Button = memo(
     border = "",
     className = "",
     style = {},
-    onClick = () => {},
+    onClick = () => { },
     type = "button",
     disabled = false,
     variant = "filled",
@@ -152,9 +152,8 @@ const Button = memo(
         type={type}
         onClick={handleClick}
         disabled={disabled}
-        className={`${versionClass} rounded-5 ${borderClass} ${bgClass} ${textClass} ${
-          disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-        } ${className}`}
+        className={`${versionClass} rounded-5 ${borderClass} ${bgClass} ${textClass} ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+          } ${className}`}
         style={computedStyle}
         {...props}
       >

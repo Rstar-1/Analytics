@@ -16,7 +16,7 @@ const FlowHeader = ({ onSave, onPublish }) => {
         </div>
         <div>
           <h5 className="font-600 headmini-text text-dark">
-            INRA
+            Ashmita Vinyls
           </h5>
           <p className="text-gray mini-text font-400">
             Supply Chain Analytics
