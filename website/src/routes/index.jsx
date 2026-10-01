@@ -10,13 +10,11 @@ const Home = lazy(() => import('../pages/home/Home'));
 const Track = lazy(() => import('../pages/tracking/Track'));
 const Node = lazy(() => import('../pages/nodes/Node'));
 const Slide = lazy(() => import('../pages/slides/Slide'));
-const Dump = lazy(() => import('../pages/dump'));
 
 function AppRoutes() {
     return (
         <Suspense fallback={<Loader />}>
             <Routes>
-                <Route path="dump" element={<Dump />} />
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Navigate to="/home" replace />} />
                     <Route path="home" element={<Home />} />
