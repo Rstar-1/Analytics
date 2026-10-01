@@ -20,13 +20,13 @@ const menuData = [
     status: true,
     role: ["admin", "vendor", "Manager"],
   },
-  {
-    name: "Slides",
-    route: "/slide",
-    icon: "Shield",
-    status: true,
-    role: ["admin", "vendor", "Manager"],
-  },
+  // {
+  //   name: "Slides",
+  //   route: "/slide",
+  //   icon: "Shield",
+  //   status: true,
+  //   role: ["admin", "vendor", "Manager"],
+  // },
 ];
 
 export { menuData };

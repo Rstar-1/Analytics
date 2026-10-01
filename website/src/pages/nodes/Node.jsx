@@ -30,6 +30,7 @@ import WorkflowNode, {
     NodeEditSidebar,
 } from '../../components/layout/generic/WorkflowNode';
 import { initialNodes, initialEdges, nodeCategories } from './initialData';
+import Button from '../../components/common/Button';
 
 const NodePaletteItem = memo(({ item, onAdd }) => (
     <div
@@ -203,6 +204,14 @@ const FlowBuilderInner = () => {
         [screenToFlowPosition, handleAddNode]
     );
 
+    const handleClearAll = useCallback(() => {
+        setNodes([]);
+        setEdges([]);
+        setSelectedNodeId(null);
+        setSelectedNode(null);
+        setIsSidebarOpen(false);
+    }, [setNodes, setEdges]);
+
     const displayNodes = useMemo(
         () => nodes.map((n) => ({ ...n, selected: n.id === selectedNodeId })),
         [nodes, selectedNodeId]
@@ -256,10 +265,18 @@ const FlowBuilderInner = () => {
                             }}
                         />
                     </ReactFlow>
+                    <div className='absolute top-0 right-0 m-12 z-888'>
+                        <Button
+                            text='Clear All'
+                            version="v2"
+                            bg="danger"
+                            color='white'
+                            onClick={handleClearAll}
+                        />
+                    </div>
                 </div>
             </div>
 
-            {/* Node Edit Sidebar Modal */}
             <NodeEditSidebar
                 isOpen={isSidebarOpen}
                 onClose={() => setIsSidebarOpen(false)}
